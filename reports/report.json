@@ -1,0 +1,192 @@
+{
+    "report_title": "Global Patent Intelligence Report",
+    "data_source": "PatentsView - USPTO",
+    "summary": {
+        "total_patents": 100000,
+        "total_inventors": 92442,
+        "total_companies": 31089,
+        "total_countries": 109
+    },
+    "top_inventors": [
+        {
+            "rank": 1,
+            "name": "Shunpei Yamazaki",
+            "country": "JP",
+            "patents": 36
+        },
+        {
+            "rank": 2,
+            "name": "Kia Silverbrook",
+            "country": "AU",
+            "patents": 23
+        },
+        {
+            "rank": 3,
+            "name": "Tao Luo",
+            "country": "US",
+            "patents": 16
+        },
+        {
+            "rank": 4,
+            "name": "Junyi Li",
+            "country": "US",
+            "patents": 13
+        },
+        {
+            "rank": 5,
+            "name": "Bartley K. Andre",
+            "country": "US",
+            "patents": 12
+        },
+        {
+            "rank": 6,
+            "name": "Matthew Dean Rohrbach",
+            "country": "US",
+            "patents": 11
+        },
+        {
+            "rank": 7,
+            "name": "Jing Sun",
+            "country": "US",
+            "patents": 11
+        },
+        {
+            "rank": 8,
+            "name": "Gurtej S. Sandhu",
+            "country": "US",
+            "patents": 11
+        },
+        {
+            "rank": 9,
+            "name": "Duncan Robert Kerr",
+            "country": "US",
+            "patents": 11
+        },
+        {
+            "rank": 10,
+            "name": "Roderick A. Hyde",
+            "country": "US",
+            "patents": 10
+        }
+    ],
+    "top_companies": [
+        {
+            "rank": 1,
+            "name": "SAMSUNG DISPLAY CO., LTD.",
+            "patents": 2064
+        },
+        {
+            "rank": 2,
+            "name": "International Business Machines Corporation",
+            "patents": 1788
+        },
+        {
+            "rank": 3,
+            "name": "CANON KABUSHIKI KAISHA",
+            "patents": 1048
+        },
+        {
+            "rank": 4,
+            "name": "SONY GROUP CORPORATION",
+            "patents": 765
+        },
+        {
+            "rank": 5,
+            "name": "Fujitsu Limited",
+            "patents": 651
+        },
+        {
+            "rank": 6,
+            "name": "Kabushiki Kaisha Toshiba",
+            "patents": 602
+        },
+        {
+            "rank": 7,
+            "name": "HITACHI, LTD.",
+            "patents": 583
+        },
+        {
+            "rank": 8,
+            "name": "Intel Corporation",
+            "patents": 581
+        },
+        {
+            "rank": 9,
+            "name": "MITSUBISHI ELECTRIC CORPORATION",
+            "patents": 561
+        },
+        {
+            "rank": 10,
+            "name": "General Electric Company",
+            "patents": 553
+        }
+    ],
+    "top_countries": [
+        {
+            "rank": 1,
+            "country": "US",
+            "patents": 48234,
+            "share": 0.5013
+        },
+        {
+            "rank": 2,
+            "country": "JP",
+            "patents": 16649,
+            "share": 0.173
+        },
+        {
+            "rank": 3,
+            "country": "DE",
+            "patents": 5790,
+            "share": 0.0602
+        },
+        {
+            "rank": 4,
+            "country": "KR",
+            "patents": 5275,
+            "share": 0.0548
+        },
+        {
+            "rank": 5,
+            "country": "CN",
+            "patents": 4345,
+            "share": 0.0452
+        },
+        {
+            "rank": 6,
+            "country": "TW",
+            "patents": 2681,
+            "share": 0.0279
+        },
+        {
+            "rank": 7,
+            "country": "FR",
+            "patents": 2038,
+            "share": 0.0212
+        },
+        {
+            "rank": 8,
+            "country": "GB",
+            "patents": 2031,
+            "share": 0.0211
+        },
+        {
+            "rank": 9,
+            "country": "CA",
+            "patents": 1919,
+            "share": 0.0199
+        },
+        {
+            "rank": 10,
+            "country": "IN",
+            "patents": 1106,
+            "share": 0.0115
+        }
+    ],
+    "patents_by_year": [
+        {
+            "year": 2018,
+            "patents": 100000
+        }
+    ]
+}
