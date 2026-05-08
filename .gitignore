@@ -4,5 +4,4 @@ __pycache__/
 .ipynb_checkpoints/
 data/*.zip
 data/*.db
-clean_data/clean_patents.csv
-clean_data/clean_inventors.csv
+clean_data/

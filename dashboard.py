@@ -123,7 +123,7 @@ with tab2:
         patent_input = st.slider(
             "Select number of patents filed by inventor:",
             min_value=1,
-            max_value=50,
+            max_value=100,
             value=5,
             step=1
         )
@@ -157,24 +157,30 @@ with tab2:
         st.markdown("- Algorithm: Linear Regression")
         st.markdown("- Feature: Patent count per inventor")
         st.markdown("- Target: Productivity category")
-        st.markdown("- Training samples: 73,953")
-        st.markdown("- Testing samples: 18,489")
-        st.markdown("- R2 Score: 0.5237")
-        st.markdown("- Mean Absolute Error: 0.0202")
+        st.markdown("- Training samples: 3,435,227")
+        st.markdown("- Testing samples: 858,807")
+        st.markdown("- R2 Score: 0.1951")
+        st.markdown("- Mean Absolute Error: 0.5499")
 
     with col_ml2:
         st.subheader("Model Performance Chart")
         st.image(VISUALS_DIR + "ml_productivity.png")
 
         st.markdown("**Productivity Distribution:**")
-        st.markdown("- Low: 91,445 inventors (1 to 2 patents)")
-        st.markdown("- Medium: 982 inventors (3 to 9 patents)")
-        st.markdown("- High: 15 inventors (10 or more patents)")
+
+        if len(df_ml) > 0:
+            low_count = len(df_ml[df_ml['productivity_label'] == 'Low'])
+            med_count = len(df_ml[df_ml['productivity_label'] == 'Medium'])
+            high_count = len(df_ml[df_ml['productivity_label'] == 'High'])
+            st.markdown(f"- Low: {low_count:,} inventors (1 to 2 patents)")
+            st.markdown(f"- Medium: {med_count:,} inventors (3 to 9 patents)")
+            st.markdown(f"- High: {high_count:,} inventors (10 or more patents)")
+
         st.markdown("")
         st.markdown("Truly prolific inventors are extremely rare globally.")
 
     st.markdown("---")
-    st.subheader("Full Inventor Productivity Classifications")
+    st.subheader("Top 50 Inventor Productivity Classifications")
     st.dataframe(df_ml.head(50), use_container_width=True)
 
 with tab3:
