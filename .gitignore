@@ -5,3 +5,4 @@ __pycache__/
 data/*.zip
 data/*.db
 clean_data/
+reports/ml_productivity.csv
