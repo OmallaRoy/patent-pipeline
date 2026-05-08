@@ -12,19 +12,76 @@ st.set_page_config(page_title="Patent Intelligence Dashboard", layout="wide")
 REPORTS_DIR = "reports/"
 VISUALS_DIR = "visuals/"
 
+COUNTRY_NAMES = {
+    'US': 'United States', 'JP': 'Japan', 'DE': 'Germany',
+    'KR': 'South Korea', 'CN': 'China', 'TW': 'Taiwan',
+    'FR': 'France', 'GB': 'United Kingdom', 'CA': 'Canada',
+    'IN': 'India', 'IL': 'Israel', 'CH': 'Switzerland',
+    'IT': 'Italy', 'NL': 'Netherlands', 'SE': 'Sweden',
+    'AU': 'Australia', 'BE': 'Belgium', 'FI': 'Finland',
+    'AT': 'Austria', 'DK': 'Denmark', 'SG': 'Singapore',
+    'RU': 'Russia', 'ES': 'Spain', 'BR': 'Brazil',
+    'NO': 'Norway', 'HK': 'Hong Kong', 'NZ': 'New Zealand',
+    'MX': 'Mexico', 'PT': 'Portugal', 'ZA': 'South Africa',
+    'PL': 'Poland', 'CZ': 'Czech Republic', 'HU': 'Hungary',
+    'GR': 'Greece', 'TR': 'Turkey', 'UA': 'Ukraine',
+    'IR': 'Iran', 'TH': 'Thailand', 'MY': 'Malaysia',
+    'ID': 'Indonesia', 'PH': 'Philippines', 'RO': 'Romania',
+    'SK': 'Slovakia', 'HR': 'Croatia', 'BG': 'Bulgaria',
+    'RS': 'Serbia', 'LT': 'Lithuania', 'SI': 'Slovenia',
+    'EE': 'Estonia', 'LV': 'Latvia', 'CY': 'Cyprus',
+    'LU': 'Luxembourg', 'IE': 'Ireland',
+    'AR': 'Argentina', 'CL': 'Chile', 'CO': 'Colombia',
+    'VE': 'Venezuela', 'PE': 'Peru', 'UY': 'Uruguay',
+    'EC': 'Ecuador', 'BO': 'Bolivia', 'PY': 'Paraguay',
+    'EG': 'Egypt', 'NG': 'Nigeria', 'KE': 'Kenya',
+    'GH': 'Ghana', 'TZ': 'Tanzania', 'ET': 'Ethiopia',
+    'UG': 'Uganda', 'ZW': 'Zimbabwe', 'SN': 'Senegal',
+    'MA': 'Morocco', 'TN': 'Tunisia', 'DZ': 'Algeria',
+    'LY': 'Libya', 'SD': 'Sudan', 'AO': 'Angola',
+    'SA': 'Saudi Arabia', 'AE': 'United Arab Emirates',
+    'QA': 'Qatar', 'KW': 'Kuwait', 'BH': 'Bahrain',
+    'OM': 'Oman', 'JO': 'Jordan', 'LB': 'Lebanon',
+    'SY': 'Syria', 'IQ': 'Iraq', 'YE': 'Yemen',
+    'PK': 'Pakistan', 'BD': 'Bangladesh', 'LK': 'Sri Lanka',
+    'NP': 'Nepal', 'MM': 'Myanmar', 'KH': 'Cambodia',
+    'VN': 'Vietnam', 'LA': 'Laos', 'MN': 'Mongolia',
+    'KZ': 'Kazakhstan', 'UZ': 'Uzbekistan', 'TM': 'Turkmenistan',
+    'GE': 'Georgia', 'AM': 'Armenia', 'AZ': 'Azerbaijan',
+    'MD': 'Moldova', 'BY': 'Belarus', 'MK': 'North Macedonia',
+    'BA': 'Bosnia and Herzegovina', 'AL': 'Albania',
+    'ME': 'Montenegro', 'XK': 'Kosovo', 'IS': 'Iceland',
+    'MT': 'Malta', 'CU': 'Cuba', 'DO': 'Dominican Republic',
+    'GT': 'Guatemala', 'HN': 'Honduras', 'SV': 'El Salvador',
+    'NI': 'Nicaragua', 'CR': 'Costa Rica', 'PA': 'Panama',
+    'TT': 'Trinidad and Tobago', 'JM': 'Jamaica',
+    'HT': 'Haiti', 'BB': 'Barbados', 'BS': 'Bahamas',
+    'BM': 'Bermuda', 'KY': 'Cayman Islands',
+    'FJ': 'Fiji', 'PG': 'Papua New Guinea',
+    'WO': 'World Intellectual Property Organization'
+}
+
 st.title("Global Patent Intelligence Dashboard")
 st.markdown("Data source: PatentsView - USPTO Granted Patents")
 
 with open(REPORTS_DIR + "report.json") as f:
     report = json.load(f)
 
+for item in report["top_countries"]:
+    item["country"] = COUNTRY_NAMES.get(item["country"], item["country"])
+
 summary = report["summary"]
 
-col1, col2, col3, col4 = st.columns(4)
+df_years = pd.read_csv(REPORTS_DIR + "patents_per_year.csv")
+min_year = int(df_years['year'].min())
+max_year = int(df_years['year'].max())
+
+col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric("Total Patents",   f"{summary['total_patents']:,}")
 col2.metric("Total Inventors", f"{summary['total_inventors']:,}")
 col3.metric("Total Companies", f"{summary['total_companies']:,}")
 col4.metric("Total Countries", f"{summary['total_countries']:,}")
+col5.metric("Year Range",      f"{min_year} to {max_year}")
 
 st.markdown("---")
 
@@ -50,10 +107,12 @@ with tab1:
     st.subheader("Patents Per Year")
     st.image(VISUALS_DIR + "patents_per_year.png")
 
+    st.subheader("ML Productivity Distribution")
+    st.image(VISUALS_DIR + "ml_productivity.png")
+
 with tab2:
     st.subheader("Inventor Productivity Predictor")
     st.markdown("Enter a patent count to predict an inventor's productivity level using Linear Regression.")
-
     st.markdown("---")
 
     col_ml1, col_ml2 = st.columns(2)
@@ -83,7 +142,7 @@ with tab2:
         color = {'Low': 'red', 'Medium': 'orange', 'High': 'green'}[label]
 
         st.markdown("---")
-        st.markdown(f"### Prediction Result")
+        st.markdown("### Prediction Result")
         st.markdown(f"An inventor with **{patent_input} patents** is predicted to be:")
         st.markdown(f"<h1 style='color:{color}'>{label} Productivity</h1>", unsafe_allow_html=True)
 
@@ -93,10 +152,7 @@ with tab2:
         st.markdown("- Medium → 3 to 9 patents")
         st.markdown("- High → 10 or more patents")
 
-    with col_ml2:
-        st.subheader("Model Performance")
-        st.image(VISUALS_DIR + "ml_productivity.png")
-
+        st.markdown("---")
         st.markdown("**Model Details:**")
         st.markdown("- Algorithm: Linear Regression")
         st.markdown("- Feature: Patent count per inventor")
@@ -105,6 +161,17 @@ with tab2:
         st.markdown("- Testing samples: 18,489")
         st.markdown("- R2 Score: 0.5237")
         st.markdown("- Mean Absolute Error: 0.0202")
+
+    with col_ml2:
+        st.subheader("Model Performance Chart")
+        st.image(VISUALS_DIR + "ml_productivity.png")
+
+        st.markdown("**Productivity Distribution:**")
+        st.markdown("- Low: 91,445 inventors (1 to 2 patents)")
+        st.markdown("- Medium: 982 inventors (3 to 9 patents)")
+        st.markdown("- High: 15 inventors (10 or more patents)")
+        st.markdown("")
+        st.markdown("Truly prolific inventors are extremely rare globally.")
 
     st.markdown("---")
     st.subheader("Full Inventor Productivity Classifications")
@@ -115,10 +182,16 @@ with tab3:
     df_inv = pd.DataFrame(report["top_inventors"])
     st.dataframe(df_inv, use_container_width=True)
 
+    st.markdown("---")
     st.subheader("Top 10 Companies Table")
     df_comp = pd.DataFrame(report["top_companies"])
     st.dataframe(df_comp, use_container_width=True)
 
+    st.markdown("---")
     st.subheader("Top 10 Countries Table")
-    df_countries = pd.DataFrame(report["top_countries"])
-    st.dataframe(df_countries, use_container_width=True)
+    df_countries_table = pd.DataFrame(report["top_countries"])
+    st.dataframe(df_countries_table, use_container_width=True)
+
+    st.markdown("---")
+    st.subheader("Patents By Year")
+    st.dataframe(df_years, use_container_width=True)
