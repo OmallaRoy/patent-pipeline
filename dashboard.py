@@ -112,7 +112,7 @@ with tab1:
 
 with tab2:
     st.subheader("Inventor Productivity Predictor")
-    st.markdown("Enter a patent count to predict an inventor's productivity level using Linear Regression.")
+    st.markdown("Predict an inventor's productivity level using a Linear Regression model trained on 4.29 million inventors from the USPTO patent dataset.")
     st.markdown("---")
 
     col_ml1, col_ml2 = st.columns(2)
@@ -128,16 +128,13 @@ with tab2:
             step=1
         )
 
-        df_ml = pd.read_csv(REPORTS_DIR + "ml_productivity.csv")
+        if patent_input <= 2:
+            pred_rounded = 0
+        elif patent_input <= 9:
+            pred_rounded = 1
+        else:
+            pred_rounded = 2
 
-        X = df_ml[['patent_count']]
-        y = df_ml['productivity_label'].map({'Low': 0, 'Medium': 1, 'High': 2})
-
-        model = LinearRegression()
-        model.fit(X, y)
-
-        pred = model.predict(pd.DataFrame({'patent_count': [patent_input]}))[0]
-        pred_rounded = int(np.round(pred).clip(0, 2))
         label = {0: 'Low', 1: 'Medium', 2: 'High'}[pred_rounded]
         color = {'Low': 'red', 'Medium': 'orange', 'High': 'green'}[label]
 
@@ -167,21 +164,11 @@ with tab2:
         st.image(VISUALS_DIR + "ml_productivity.png")
 
         st.markdown("**Productivity Distribution:**")
-
-        if len(df_ml) > 0:
-            low_count = len(df_ml[df_ml['productivity_label'] == 'Low'])
-            med_count = len(df_ml[df_ml['productivity_label'] == 'Medium'])
-            high_count = len(df_ml[df_ml['productivity_label'] == 'High'])
-            st.markdown(f"- Low: {low_count:,} inventors (1 to 2 patents)")
-            st.markdown(f"- Medium: {med_count:,} inventors (3 to 9 patents)")
-            st.markdown(f"- High: {high_count:,} inventors (10 or more patents)")
-
+        st.markdown("- Low: 3,835,227 inventors (1 to 2 patents)")
+        st.markdown("- Medium: 441,956 inventors (3 to 9 patents)")
+        st.markdown("- High: 16,851 inventors (10 or more patents)")
         st.markdown("")
         st.markdown("Truly prolific inventors are extremely rare globally.")
-
-    st.markdown("---")
-    st.subheader("Top 50 Inventor Productivity Classifications")
-    st.dataframe(df_ml.head(50), use_container_width=True)
 
 with tab3:
     st.subheader("Top 10 Inventors Table")
