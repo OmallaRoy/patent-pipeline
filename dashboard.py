@@ -168,7 +168,7 @@ with tab2:
         st.markdown("- Medium: 441,956 inventors (3 to 9 patents)")
         st.markdown("- High: 16,851 inventors (10 or more patents)")
         st.markdown("")
-        st.markdown("Truly prolific inventors are extremely rare globally.")
+        
 
 with tab3:
     st.subheader("Top 10 Inventors Table")
