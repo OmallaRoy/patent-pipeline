@@ -149,16 +149,6 @@ with tab2:
         st.markdown("- Medium → 3 to 9 patents")
         st.markdown("- High → 10 or more patents")
 
-        st.markdown("---")
-        st.markdown("**Model Details:**")
-        st.markdown("- Algorithm: Linear Regression")
-        st.markdown("- Feature: Patent count per inventor")
-        st.markdown("- Target: Productivity category")
-        st.markdown("- Training samples: 3,435,227")
-        st.markdown("- Testing samples: 858,807")
-        st.markdown("- R2 Score: 0.1951")
-        st.markdown("- Mean Absolute Error: 0.5499")
-
     with col_ml2:
         st.subheader("Model Performance Chart")
         st.image(VISUALS_DIR + "ml_productivity.png")
